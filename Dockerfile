@@ -1,5 +1,11 @@
+FROM caddy:alpine as caddy
 FROM php:8-fpm-alpine
-COPY --from=caddy:alpine /usr/bin/caddy /usr/bin/caddy
+# 复制caddy相关文件
+COPY --from=caddy /config /config
+COPY --from=caddy /data /data
+COPY --form=caddy /etc/caddy /etc/caddy
+COPY --from=caddy /usr/bin/caddy /usr/bin/caddy
+
 RUN set -eux && \
 	apk update &&\
 	apk add --no-cache  \
