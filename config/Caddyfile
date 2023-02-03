@@ -1,0 +1,12 @@
+{
+    auto_https disable_redirects
+    email admin@rainss.cc
+}
+jrebel.rainss.cc:80, jrebel.rlds.tk:80 {
+    encode zstd gzip
+    reverse_proxy :81
+}
+charles.rlds.tk:80 {
+    encode zstd gzip
+    reverse_proxy :8082
+}
