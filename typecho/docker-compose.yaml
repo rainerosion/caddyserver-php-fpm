@@ -1,0 +1,28 @@
+version: '3.2'
+services:
+  webservice:
+    container_name: caddy
+    image: caddy:latest
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - ./caddy/Caddyfile:/etc/caddy/Caddyfile
+      - ./caddy/config:/config
+      - ./caddy/data:/data
+      - ./caddy/websites:/www/websites
+    depends_on:
+      - php-cgi
+    restart: unless-stopped
+  php-cgi:
+    container_name: php-fpm
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./caddy/websites:/www/websites
+#      - ./caddy/config/php:/usr/local/etc/php
+    restart: unless-stopped
+networks:
+  website:

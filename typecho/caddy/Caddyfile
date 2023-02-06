@@ -1,0 +1,16 @@
+{
+    auto_https disable_redirects
+    email admin@rainss.cc
+}
+rainss.net:80 {
+    encode gzip
+    root * /www/websites/typecho
+    php_fastcgi php-fpm:9000
+    file_server
+}
+http://pay.test {
+    root * /www/websites/typecho
+    encode gzip
+    php_fastcgi php-fpm:9000
+    file_server
+}
