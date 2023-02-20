@@ -54,7 +54,7 @@ RUN set -eux && \
     apk update && \
     apk add --no-cache $RUN_DEPS && \
     usermod -u $UID -o www-data && \
-    groupmod -g $GUID www-data && \
+    groupmod -g $GUID -o www-data && \
     apk add --no-cache --virtual .build-deps $BUILD_DEPS && \
     docker-php-ext-configure gd --enable-gd --with-jpeg --with-webp && \
     docker-php-ext-install -j $(nproc) $PHP_EXTENSIONS && \
