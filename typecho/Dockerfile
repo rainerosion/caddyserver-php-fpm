@@ -47,7 +47,7 @@ ENV PHP_EXTENSIONS \
     pdo_sqlite \
     fileinfo \
     mbstring
-ARG UID=501
+ARG UID=1000
 ARG GUID=1000
 RUN set -eux && \
     sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories && \
