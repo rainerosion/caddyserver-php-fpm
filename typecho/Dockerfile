@@ -30,7 +30,8 @@ ENV RUN_DEPS \
     curl \
     sqlite-libs \
     oniguruma \
-    libmemcached
+    libmemcached \
+    shadow
 
 ENV PHP_EXTENSIONS \
     zip \
@@ -46,11 +47,14 @@ ENV PHP_EXTENSIONS \
     pdo_sqlite \
     fileinfo \
     mbstring
-
+ARG UID=501
+ARG GUID=1000
 RUN set -eux && \
     sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories && \
     apk update && \
     apk add --no-cache $RUN_DEPS && \
+    usermod -u $UID -o www-data && \
+    groupmod -g $GUID www-data && \
     apk add --no-cache --virtual .build-deps $BUILD_DEPS && \
     docker-php-ext-configure gd --enable-gd --with-jpeg --with-webp && \
     docker-php-ext-install -j $(nproc) $PHP_EXTENSIONS && \
