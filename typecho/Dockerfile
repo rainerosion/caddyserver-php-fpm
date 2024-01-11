@@ -1,6 +1,6 @@
 FROM composer:latest as composer-build
 
-FROM php:8.1.15-fpm-alpine3.17
+FROM php:8.3-fpm-alpine3.19
 MAINTAINER rainerosion "admin@rainss.cn"
 
 COPY --from=composer-build /usr/bin/composer /usr/bin/composer
@@ -17,7 +17,8 @@ ENV BUILD_DEPS \
     oniguruma-dev \
     libmemcached-dev \
     zlib-dev \
-    imagemagick-dev
+    imagemagick-dev \
+    freetype-dev
 # runtime dependencies
 ENV RUN_DEPS \
     autoconf \
@@ -35,7 +36,8 @@ ENV RUN_DEPS \
     libmemcached \
     shadow \
     zlib \
-    imagemagick
+    imagemagick \
+    freetype
 # php extensions
 ENV PHP_EXTENSIONS \
     zip \
@@ -64,7 +66,7 @@ RUN set -eux && \
     usermod -u $UID -o $USER && \
     groupmod -g $GUID -o $USER && \
     apk add --no-cache --virtual .build-deps $BUILD_DEPS && \
-    docker-php-ext-configure gd --enable-gd --with-jpeg --with-webp && \
+    docker-php-ext-configure gd --enable-gd --with-jpeg --with-webp --with-freetype && \
     docker-php-ext-install -j $(nproc) $PHP_EXTENSIONS && \
     pecl install redis memcached imagick && \
     docker-php-ext-enable redis memcached imagick && \
