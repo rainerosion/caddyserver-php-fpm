@@ -66,6 +66,6 @@ RUN set -eux && \
     apk add --no-cache --virtual .build-deps $BUILD_DEPS && \
     docker-php-ext-configure gd --enable-gd --with-jpeg --with-webp && \
     docker-php-ext-install -j $(nproc) $PHP_EXTENSIONS && \
-    pecl install redis memcached  && \
+    pecl install redis memcached imagick && \
     docker-php-ext-enable redis memcached imagick && \
     apk del .build-deps
