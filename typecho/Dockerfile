@@ -15,7 +15,8 @@ ENV BUILD_DEPS \
     curl-dev \
     sqlite-dev \
     oniguruma-dev \
-    libmemcached-dev
+    libmemcached-dev \
+    zlib-dev
 
 ENV RUN_DEPS \
     autoconf \
@@ -31,7 +32,8 @@ ENV RUN_DEPS \
     sqlite-libs \
     oniguruma \
     libmemcached \
-    shadow
+    shadow \
+    zlib
 
 ENV PHP_EXTENSIONS \
     zip \
@@ -47,6 +49,8 @@ ENV PHP_EXTENSIONS \
     pdo_sqlite \
     fileinfo \
     mbstring
+
+# set default uid and gid for www-data
 ARG UID=1000
 ARG GUID=1000
 RUN set -eux && \
