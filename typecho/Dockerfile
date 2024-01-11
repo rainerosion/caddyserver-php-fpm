@@ -4,7 +4,7 @@ FROM php:8.1.15-fpm-alpine3.17
 MAINTAINER rainerosion "admin@rainss.cn"
 
 COPY --from=composer-build /usr/bin/composer /usr/bin/composer
-COPY Caddyfile /etc/caddy/Caddyfile
+# build dependencies
 ENV BUILD_DEPS \
     libzip-dev \
     icu-dev \
@@ -16,8 +16,9 @@ ENV BUILD_DEPS \
     sqlite-dev \
     oniguruma-dev \
     libmemcached-dev \
-    zlib-dev
-
+    zlib-dev \
+    imagemagick-dev
+# runtime dependencies
 ENV RUN_DEPS \
     autoconf \
     g++ \
@@ -33,8 +34,9 @@ ENV RUN_DEPS \
     oniguruma \
     libmemcached \
     shadow \
-    zlib
-
+    zlib \
+    imagemagick
+# php extensions
 ENV PHP_EXTENSIONS \
     zip \
     intl \
@@ -48,20 +50,22 @@ ENV PHP_EXTENSIONS \
     session \
     pdo_sqlite \
     fileinfo \
-    mbstring
-
+    mbstring \
+    bcmath
 # set default uid and gid for www-data
 ARG UID=1000
 ARG GUID=1000
+# fpm user
+ARG USER=www-data
 RUN set -eux && \
     sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories && \
     apk update && \
     apk add --no-cache $RUN_DEPS && \
-    usermod -u $UID -o www-data && \
-    groupmod -g $GUID -o www-data && \
+    usermod -u $UID -o $USER && \
+    groupmod -g $GUID -o $USER && \
     apk add --no-cache --virtual .build-deps $BUILD_DEPS && \
     docker-php-ext-configure gd --enable-gd --with-jpeg --with-webp && \
     docker-php-ext-install -j $(nproc) $PHP_EXTENSIONS && \
     pecl install redis memcached  && \
-    docker-php-ext-enable redis memcached && \
+    docker-php-ext-enable redis memcached imagick && \
     apk del .build-deps

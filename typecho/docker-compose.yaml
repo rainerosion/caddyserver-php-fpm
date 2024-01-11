@@ -6,12 +6,11 @@ services:
     ports:
       - "80:80"
       - "443:443"
-      - "443:443/udp"
     volumes:
-      - ${PWD}/caddy/Caddyfile:/etc/caddy/Caddyfile
-      - ${PWD}/caddy/config:/config
-      - ${PWD}/caddy/data:/data
-      - ${PWD}/caddy/websites:/www/websites
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - ./config:/config
+      - ./data:/data
+      - ./websites:/www/websites
     depends_on:
       - php-cgi
     restart: unless-stopped
@@ -23,22 +22,9 @@ services:
       context: .
       dockerfile: Dockerfile
     volumes:
-      - ${PWD}/caddy/websites:/www/websites
+      - ./websites:/www/websites
     restart: unless-stopped
     networks:
       - website
-#  pgsql:
-#    container_name: timemail-pgsql
-#    image: postgres:12.4
-#    restart: unless-stopped
-#    environment:
-#      - POSTGRES_PASSWORD=rains.wiki
-#      - ALLOW_IP_RANGE=0.0.0.0/0
-#    ports:
-#      - 5432:5432
-#    volumes:
-#      - ${PWD}/caddy/postgres/data:/var/lib/postgresql
-#    networks:
-#      - website
 networks:
   website:
