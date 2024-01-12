@@ -7,7 +7,7 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - ./Caddyfile:/etc/caddy/Caddyfile
+      - ./config/Caddyfile:/etc/caddy/Caddyfile
       - ./config:/config
       - ./data:/data
       - ./websites:/www/websites
@@ -19,7 +19,7 @@ services:
   php-cgi:
     container_name: php-fpm
     build:
-      context: .
+      context: ../../php-fpm/8.2
       dockerfile: Dockerfile
     volumes:
       - ./websites:/www/websites

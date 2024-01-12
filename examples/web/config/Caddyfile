@@ -1,0 +1,13 @@
+:80 {
+    encode gzip
+    root * /www/websites/public
+    php_fastcgi php-fpm:9000
+    file_server
+}
+
+lsky.album.run:80 {
+    encode gzip
+    root * /www/websites/lsky/public
+    php_fastcgi php-fpm:9000
+    file_server
+}

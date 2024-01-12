@@ -1,6 +1,0 @@
-rlds.tk {
-    encode gzip
-    root * /www/websites/typecho
-    php_fastcgi php-fpm:9000
-    file_server
-}
