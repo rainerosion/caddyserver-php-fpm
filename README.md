@@ -32,9 +32,7 @@ docker run -d -p 80:80 -p 443:443 -v /path/to/your/Caddyfile:/etc/caddy/Caddyfil
 
 You can use Docker Compose to run CaddyServer with PHP-FPM. For example:
 
-- Configure your Caddyfile and Using the following command to create a container. 
-
-- Caddyfile
+- Configure your Caddyfile and Using the following command to create a container.
 
 ```plaintext
 {
