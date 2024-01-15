@@ -78,8 +78,8 @@ RUN set -eux; \
       /data/caddy \
       /etc/caddy \
       /usr/share/caddy ; \
-    wget -O /etc/caddy/Caddyfile "https://p.iblog.site/https://github.com/caddyserver/dist/raw/cd39178d252a610fee6aa8465c787d9c780007a2/config/Caddyfile"; \
-    wget -O /usr/share/caddy/index.html "https://p.iblog.site/https://github.com/caddyserver/dist/raw/cd39178d252a610fee6aa8465c787d9c780007a2/welcome/index.html"; \
+    wget -O /etc/caddy/Caddyfile "https://github.com/caddyserver/dist/raw/cd39178d252a610fee6aa8465c787d9c780007a2/config/Caddyfile"; \
+    wget -O /usr/share/caddy/index.html "https://github.com/caddyserver/dist/raw/cd39178d252a610fee6aa8465c787d9c780007a2/welcome/index.html"; \
     echo "<?php phpinfo();" > /usr/share/caddy/info.php; \
     apkArch="$(apk --print-arch)"; \
     case "$apkArch" in \
