@@ -1,7 +1,7 @@
 FROM --platform=$TARGETPLATFORM composer:latest as composer-build
 
 FROM --platform=$TARGETPLATFORM php:8.3-fpm-alpine3.19
-MAINTAINER rainerosion "admin@rainss.cn"
+LABEL maintainer="rainerosion <admin@rainss.cn>"
 
 COPY --from=composer-build /usr/bin/composer /usr/bin/composer
 # build dependencies
