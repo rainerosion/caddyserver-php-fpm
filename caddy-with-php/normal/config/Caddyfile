@@ -19,7 +19,7 @@
 	# reverse_proxy localhost:8080
 
 	# Or serve a PHP site through php-fpm:
-	# php_fastcgi localhost:9000
+	php_fastcgi localhost:9000
 }
 
 # Refer to the Caddy docs for more information:
