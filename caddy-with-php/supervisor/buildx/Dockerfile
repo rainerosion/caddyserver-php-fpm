@@ -108,9 +108,9 @@ RUN set -eux; \
     apk del .build-deps; \
     curl --tlsv1 -v -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer;
 
-COPY ../listener.php /srv/listener.php
-COPY ../supervisord.conf /etc/supervisord.conf
-COPY ../conf /etc/supervisor/conf.d/
+COPY listener.php /srv/listener.php
+COPY supervisord.conf /etc/supervisord.conf
+COPY conf /etc/supervisor/conf.d/
 
 EXPOSE 80
 EXPOSE 443
